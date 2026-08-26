@@ -1,24 +1,30 @@
-//
-//  ContentView.swift
-//  Animations
-//
-//  Created by Ruvaid on 25/08/26.
-//
+    //
+    //  ContentView.swift
+    //  Animations
+    //
+    //  Created by Ruvaid on 25/08/26.
+    //
 
-import SwiftUI
+    import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+    struct ContentView: View {
+        
+        @State private var enabled = false
+        
+        var body: some View {
+            
+                Button("Tap Me") {
+                    enabled.toggle()
+                }
+                .frame(width: 200, height: 200)
+                .background(enabled ? .blue : .red)
+                .animation(nil, value: enabled)
+                .foregroundStyle(.white)
+                .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
+                .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
+            
         }
-        .padding()
     }
-}
-
-#Preview {
-    ContentView()
-}
+    #Preview {
+        ContentView()
+    }
