@@ -1,30 +1,41 @@
-    //
-    //  ContentView.swift
-    //  Animations
-    //
-    //  Created by Ruvaid on 25/08/26.
-    //
+        //
+        //  ContentView.swift
+        //  Animations
+        //
+        //  Created by Ruvaid on 25/08/26.
+        //
 
-    import SwiftUI
+        import SwiftUI
 
-    struct ContentView: View {
-        
-        @State private var enabled = false
-        
-        var body: some View {
+        struct ContentView: View {
             
-                Button("Tap Me") {
-                    enabled.toggle()
-                }
-                .frame(width: 200, height: 200)
-                .background(enabled ? .blue : .red)
-                .animation(nil, value: enabled)
-                .foregroundStyle(.white)
-                .clipShape(.rect(cornerRadius: enabled ? 60 : 0))
-                .animation(.spring(duration: 1, bounce: 0.6), value: enabled)
+            
+            let letters = Array("Hello SwiftUI")
+            @State private var enabled = false
+            @State private var dragAmount = CGSize.zero
+            
+            var body: some View {
+                HStack(spacing: 0) {
+                            ForEach(0..<letters.count, id: \.self) { num in
+                                Text(String(letters[num]))
+                                    .padding(5)
+                                    .font(.title)
+                                    .background(enabled ? .blue : .red)
+                                    .offset(dragAmount)
+                                    .animation(.linear.delay(Double(num) / 20), value: dragAmount)
+                            }
+                        }
+                        .gesture(
+                            DragGesture()
+                                .onChanged { dragAmount = $0.translation }
+                                .onEnded { _ in
+                                    dragAmount = .zero
+                                    enabled.toggle()
+                                }
+                        )
+                    }
             
         }
-    }
-    #Preview {
-        ContentView()
-    }
+        #Preview {
+            ContentView()
+        }
