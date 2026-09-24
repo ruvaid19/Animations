@@ -41,12 +41,12 @@ struct ContentView: View {
         ZStack {
             Rectangle()
                 .fill(.blue)
-                .frame(width: 200, height: 200)
+                .frame(width: 100 , height: 100)
 
             if isShowingRed {
                 Rectangle()
                     .fill(.red)
-                    .frame(width: 200, height: 200)
+                    .frame(width: 100, height: 100)
                     .transition(.pivot)
             }
         }
